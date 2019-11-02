@@ -7,50 +7,51 @@ import styles from './document.module.css'
   {/* <img src={reactLogo} className={styles["logo-react"]} alt="logo" /> */}
 </div>
 
-## Introduction
-
-**To update this post,** edit `src/pages/posts/2019-01-05-welcome/document.mdx` and save to reload.
-
-**To update the site's title,** edit the metadata in `src/siteMetadata.js`.
-
-**To your bio and photo,** edit the Bio component in `src/components/Bio.js`.
-
-<!--**To learn how to build your own JAMStack app**, join the [React In Practice](https://frontarm.com/courses/react-in-practice/) course by [James K Nelson](https://twitter.com/james_k_nelson), where you'll build this blog from scratch.-->
-
-**To change the site's colors,** edit the `:root` block in `src/index.module.css`.
-
-**To create a new post,** add a new directory to `src/pages/posts` that is prefixed with the new post's publication date, then create a `post.js` file inside it:
+## Throttle
+Throttling enforces a maximum number of times a function can be called over time.
+ For example, “execute this function at most once every 100 milliseconds.”
 
 ```jsx
-export default {
-  title: `Learn How To Build This Blog From Scratch`,
-  tags: ['react', 'navi'],
-  spoiler: "An online course with loads of live demos and exercises.",
-  getContent: () => import('./document.mdx'),
+const throttle = (func, limit) => {
+  let inThrottle
+  return function() {
+    const args = arguments
+    const context = this
+    if (!inThrottle) {
+      func.apply(context, args)
+      inThrottle = true
+      setTimeout(() => inThrottle = false, limit)
+    }
+  }
 }
+
+throttleBtn.addEventListener('click', throttle(function() {
+  return console.log('Hey! It is', new Date().toUTCString());
+}, 1000));
 ```
 
-**To set the maximum number of posts on an index page,**, set the `indexPageSize` property of the object exported by `src/siteMetadata.js`.
 
-**To modify the generated HTML,** update the `src/renderPageToString.js` file.
+## Debounce
+Debouncing enforces that a function not be called again until a certain amount of time has 
+passed without it being called. For example, “execute this function only if 100 milliseconds 
+have passed without it being called.”
 
-**To add non-blog pages,** just use [`Navi.createPage()`](https://frontarm.com/navi/reference/declarations/#createpage), [`Navi.createSwitch()`](https://frontarm.com/navi/reference/declarations/#createswitch) and [`Navi.createRedirect()`](https://frontarm.com/navi/reference/declarations/#createredirect). For an example, check the about page at `src/pages/about/index.js`. If you create a page, remember to add it to the root switch at `src/pages/index.js`.
+```jsx
+const debounce = (func, delay) => {
+  let inDebounce
+  return function() {
+    const context = this
+    const args = arguments
+    clearTimeout(inDebounce)
+    inDebounce = setTimeout(() => func.apply(context, args), delay)
+  }
+}
 
-**To brush up on React's fundamentals,** check out the [React (without the buzzwords)](https://frontarm.com/courses/learn-raw-react/) and [Asynchronous JavaScript](https://frontarm.com/courses/async-javascript/) courses.
+debounceBtn.addEventListener('click', debounce(function() {
+  console.info('Hey! It is', new Date().toUTCString());
+}, 3000));
+```
 
-
-##  The lowdown
-
-This template is designed with a JAMstack architecture. This means that the blog is statically rendered for the fastest possible load time, but once loaded, it turns into a single page app -- ensuring navigation is silky smooth.
-
-It follows a convention-over-configuation philosophy. It should work out of the box with minimal effort for most people's needs, but can also be configured where required.
-
-Finally, an effort has been made to prefer explicit code over concise code, and simplicity over complexity. Magic is avoided wherever possible, even if this means more code is required for the desired result.
-
-
-## The tools
-
-- [React](https://reactjs.org) renders the UI
-- [MDX](https://mdxjs.com) converts markdown into React components
-- [Navi](https://frontarm.com/navi/) handles routing and creates static HTML files for each route
-- [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) builds the app's assets and provides the dev server
+<!--
+Reference: 
+1. https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf -->

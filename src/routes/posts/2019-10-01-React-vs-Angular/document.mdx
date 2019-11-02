@@ -1,39 +1,43 @@
 import styles from './document.module.css'
-import webkitflow from './webkitflow.png';
-import mozilaGecko from './webkitflow.png';
-import virtualdom from './virtualdom.png';
-import dom from './dom.png';
+import webkitflow from './images/webkitflow.png';
+import mozilaGecko from './images/webkitflow.png';
+import virtualdom from './images/virtualdom.png';
+import dom from './images/dom.png';
 
 <div className={styles["Welcome"]}>
 
 ## Introduction 
 
-ReactJs and Angular are widely used web development framework for single page application. In this article i will explain how 
-react/angular work on the optimisation to provide faster rendering on screen.
+React and Angular are widely used web development framework for single page application from a very long time in industry. 
+In this article i will explain how react/angular work on the optimisation to provide faster rendering on screen.
 
-Before explaning the core algorithm of these two development framework we should have idea of how HTML parserer works and dom get
-displayed on screen. Below is the workflow of webit which shows the stages through which html files goes before displaing on screen.
+Before explaning the core algorithm of these two development framework we should have an idea of how HTML parserer works and 
+dom get displayed on screen. Below is the workflow of webkit which shows the stages through which html files goes before 
+displaing on screen.
 
-HTML and CSS parser will parse and check for syntax validation once the renderer tree is contructd then in next stage of Layout
-nodes get exact coordinates to appear on the screen. Next, it will goes thourhg painting where earch nodes
-will be painted. For detailed explanation refer [How Browser Work](http://taligarsiel.com/Projects/howbrowserswork1.htm#Introduction)
+First stage is the parsing of HTML and CSS to check for syntax validation once the renderer tree is contructd it merge it
+with the style rules, next comes the Layout where each nodes in the Dom Tree get their coordinates, We write these coordinates as 
+width and height while styling element. Next, it will goes through painting where earch nodes will be painted with the color codes 
+specified in the style and in later stage it get displayed on screen. For detailed explanation refer [How Browser Work](http://taligarsiel.com/Projects/howbrowserswork1.htm#Introduction)
 
-<div className={styles["logo"]}>
-  <img src={webkitflow} className={styles["logo-react"]} alt="logo" />
+<div className={styles["webkit"]}>
+  <img src={webkitflow} className={styles["logo-webkit"]} alt="logo" />
 </div>
+<div className={styles["center"]}> fig 1: How browsers work </div>
 
 **Front-End Framework Comparision**
-In this article i'll be disscussing the optimisation technique used by react and Angular, How the re-construction of 
+i'll be disscussing the optimisation technique used by react and Angular, How the re-construction of 
 tree happen when there's any change in the  renderer tree. In react there's virtual Dom Tree used bt react
 whereas angular use change detection technique to detech any node view change.
 
 
-**React:** React uses Virtual Dom for optimising renderer tree before painting on screen, it's a json object which contain 
-node's TagName, Attribute, style, props passed from parent and other information to uniquily identify it. When react application
-runs it make a seperate copy of each node in the form of json object refer Fig 2. let's say user perform any action in compoent
-component D and Component E, once the change happen react will compare this tree with the actual dom using [diffing algorith](https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf).
-As a result new Dom Tree will be proposed for rendering Component D, E, G and H and only these compoent will get painted on screen 
-and optimising the rendering process.
+**React:** React uses Virtual Dom to optimising the renderer tree before painting on screen,a json object which contain 
+node's TagName, Attribute, style, props and other information to uniquily identify the node. When react application
+runs it make a seperate copy of each node in the form of tree and each node represent json object refer Fig 2. 
+let's say user perform any action in component D and Component E, once the change happen react will compare this tree with 
+the actual dom using [diffing algorith](https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf).
+As a result new Dom Tree will be created for rendering Component D, E, G and H and only these compoent will get painted on screen 
+hence optimising the rendering process.
 
 ```jsx
 /* Virtual Dom Json Representation */
@@ -63,7 +67,7 @@ and optimising the rendering process.
 ```
 
 *Diffing Algorithm:* Comparing virtual dom with the actual dom. This algorithm makes sure the parsed object only goes to layout 
-and then paining whenever necessary changes are requierd, it avoid unneccesary rendering of tree. Complexity of this algorithm 
+and then painting whenever neccessary changes are requierd, it avoid unneccesary rendering of tree. Complexity of this algorithm 
 is log(n<sup>3</sup>). so if there are 1000 operation then there going to 1 billion comparision. To avoid this much of comparision 
 react render the below nodes if something changes to parent, It wont compare each and every nodes if changes detected at parent. 
 For more detailed explanation refer react's [reconciliation](https://reactjs.org/docs/reconciliation.html).
@@ -72,15 +76,17 @@ For more detailed explanation refer react's [reconciliation](https://reactjs.org
 <div className={styles["logo"]}>
   <img src={virtualdom} className={styles["virtualdom-react"]} alt="logo" />
 </div>
+<div className={styles["center"]}>fig-2:Virtual dom: Action performed by user on component D and E </div>
 
-<div className={styles["logo"]}>
+<div className={styles["dom-height"]}>
   <img src={dom} className={styles["dom-react"]} alt="logo" />
 </div>
+<div className={styles["center"]}> fig 3: After comparison with actual DOM,Component D, E, G and H will update </div>
 
 **Angular:** Angular usses change detection technique to update the view. It is very intresting to note that Angular
-create a [ViewData](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L343) 
-which is a json object and it contain all the information for current node and the child nodes instance in
-[component](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L351) key. 
+creates [ViewData](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L343) for all nodes
+which is a json object and it contain all the information for current node and if there's any child compoent it created it's 
+instance and save in component [component](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L351) key. 
 
 A View is a fundamental building block of the application UI. It is the smallest grouping of Elements which 
 are created and destroyed together. Properties of elements in a View can change, but the structure (number 
@@ -88,3 +94,49 @@ and order) of elements in a View cannot. Changing the structure of Elements can 
 moving or removing nested Views via a ViewContainerRef. Each View can contain many View Containers.
 
 </div>
+
+
+
+
+
+<!--**To learn how to build your own JAMStack app**, join the [React In Practice](https://frontarm.com/courses/react-in-practice/) course by [James K Nelson](https://twitter.com/james_k_nelson), where you'll build this blog from scratch.-->
+
+<!-- **To change the site's colors,** edit the `:root` block in `src/index.module.css`.
+
+**To create a new post,** add a new directory to `src/pages/posts` that is prefixed with the new post's publication date, then create a `post.js` file inside it: -->
+
+
+<!-- 
+**To set the maximum number of posts on an index page,**, set the `indexPageSize` property of the object exported by `src/siteMetadata.js`.
+
+**To modify the generated HTML,** update the `src/renderPageToString.js` file.
+
+**To add non-blog pages,** just use [`Navi.createPage()`](https://frontarm.com/navi/reference/declarations/#createpage), [`Navi.createSwitch()`](https://frontarm.com/navi/reference/declarations/#createswitch) and [`Navi.createRedirect()`](https://frontarm.com/navi/reference/declarations/#createredirect). For an example, check the about page at `src/pages/about/index.js`. If you create a page, remember to add it to the root switch at `src/pages/index.js`.
+
+**To brush up on React's fundamentals,** check out the [React (without the buzzwords)](https://frontarm.com/courses/learn-raw-react/) and [Asynchronous JavaScript](https://frontarm.com/courses/async-javascript/) courses. -->
+
+
+<!-- ## The tools -->
+
+<!-- - [React](https://reactjs.org) renders the UI -->
+
+<!-- 
+Reference
+1. https://reactjs.org/docs/reconciliation.html
+2. http://taligarsiel.com/Projects/howbrowserswork1.htm#Introduction
+3. https://blog.angularindepth.com/a-deep-deep-deep-deep-deep-dive-into-the-angular-compiler-5379171ffb7a
+4. https://stackoverflow.com/questions/48942691/how-angular-builds-and-runs 
+5. https://dzone.com/articles/how-to-use-change-detection-in-angular
+6. https://blog.angularindepth.com/a-gentle-introduction-into-change-detection-in-angular-33f9ffff6f10
+7. https://blog.angularindepth.com/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930
+8. https://blog.angularindepth.com/angulars-digest-is-reborn-in-the-newer-version-of-angular-718a961ebd3e
+9. https://hackernoon.com/exploring-angular-dom-abstractions-80b3ebcfc02
+10. https://hackernoon.com/everything-you-need-to-know-about-change-detection-in-angular-8006c51d206f
+11. https://blog.angularindepth.com/3-reasons-why-you-should-follow-angular-in-depth-publication-6e37a7d7f988
+12. https://indepth.dev/he-who-thinks-change-detection-is-depth-first-and-he-who-thinks-its-breadth-first-are-both-usually-right/
+13. https://blog.angularindepth.com/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930
+14. https://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html#angularjs-dirty-checking
+15. https://medium.com/@bencabanes/angular-change-detection-strategy-an-introduction-819aaa7204e7
+
+ -->
+
