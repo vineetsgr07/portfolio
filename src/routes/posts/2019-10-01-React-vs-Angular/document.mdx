@@ -1,0 +1,90 @@
+import styles from './document.module.css'
+import webkitflow from './webkitflow.png';
+import mozilaGecko from './webkitflow.png';
+import virtualdom from './virtualdom.png';
+import dom from './dom.png';
+
+<div className={styles["Welcome"]}>
+
+## Introduction 
+
+ReactJs and Angular are widely used web development framework for single page application. In this article i will explain how 
+react/angular work on the optimisation to provide faster rendering on screen.
+
+Before explaning the core algorithm of these two development framework we should have idea of how HTML parserer works and dom get
+displayed on screen. Below is the workflow of webit which shows the stages through which html files goes before displaing on screen.
+
+HTML and CSS parser will parse and check for syntax validation once the renderer tree is contructd then in next stage of Layout
+nodes get exact coordinates to appear on the screen. Next, it will goes thourhg painting where earch nodes
+will be painted. For detailed explanation refer [How Browser Work](http://taligarsiel.com/Projects/howbrowserswork1.htm#Introduction)
+
+<div className={styles["logo"]}>
+  <img src={webkitflow} className={styles["logo-react"]} alt="logo" />
+</div>
+
+**Front-End Framework Comparision**
+In this article i'll be disscussing the optimisation technique used by react and Angular, How the re-construction of 
+tree happen when there's any change in the  renderer tree. In react there's virtual Dom Tree used bt react
+whereas angular use change detection technique to detech any node view change.
+
+
+**React:** React uses Virtual Dom for optimising renderer tree before painting on screen, it's a json object which contain 
+node's TagName, Attribute, style, props passed from parent and other information to uniquily identify it. When react application
+runs it make a seperate copy of each node in the form of json object refer Fig 2. let's say user perform any action in compoent
+component D and Component E, once the change happen react will compare this tree with the actual dom using [diffing algorith](https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf).
+As a result new Dom Tree will be proposed for rendering Component D, E, G and H and only these compoent will get painted on screen 
+and optimising the rendering process.
+
+```jsx
+/* Virtual Dom Json Representation */
+"nodeName": "div",
+"children":[
+    {
+    "nodeName": "input",
+    "attribute": {
+      "type": "text",
+      "placeholder":"search",
+      "onchange":[]
+    },
+    "children":[]
+  },
+  {
+    "nodeName": "List",
+    "attribute": {
+      "items":[
+        "Jam",
+        "Toast",
+        "Butter"
+      ]
+    },
+    "children":[]
+  }
+]
+```
+
+*Diffing Algorithm:* Comparing virtual dom with the actual dom. This algorithm makes sure the parsed object only goes to layout 
+and then paining whenever necessary changes are requierd, it avoid unneccesary rendering of tree. Complexity of this algorithm 
+is log(n<sup>3</sup>). so if there are 1000 operation then there going to 1 billion comparision. To avoid this much of comparision 
+react render the below nodes if something changes to parent, It wont compare each and every nodes if changes detected at parent. 
+For more detailed explanation refer react's [reconciliation](https://reactjs.org/docs/reconciliation.html).
+
+
+<div className={styles["logo"]}>
+  <img src={virtualdom} className={styles["virtualdom-react"]} alt="logo" />
+</div>
+
+<div className={styles["logo"]}>
+  <img src={dom} className={styles["dom-react"]} alt="logo" />
+</div>
+
+**Angular:** Angular usses change detection technique to update the view. It is very intresting to note that Angular
+create a [ViewData](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L343) 
+which is a json object and it contain all the information for current node and the child nodes instance in
+[component](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L351) key. 
+
+A View is a fundamental building block of the application UI. It is the smallest grouping of Elements which 
+are created and destroyed together. Properties of elements in a View can change, but the structure (number 
+and order) of elements in a View cannot. Changing the structure of Elements can only be done by inserting, 
+moving or removing nested Views via a ViewContainerRef. Each View can contain many View Containers.
+
+</div>

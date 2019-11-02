@@ -1,0 +1,25 @@
+.logo {
+  position: relative;
+  height: 270px;
+  left: 0;
+  margin: 0 auto;
+  width: 512px;
+  overflow: hidden;
+}
+
+.logo-navi,
+.dom-react{
+  height: 215px;
+  position: absolute;
+}
+
+.logo-navi,
+.virtualdom-react {
+  height: 265px;
+  position: absolute;
+}
+.logo-navi {
+  animation: Index-logo-navi-spin infinite 20s linear;
+  left: 212px;
+}
+
