@@ -8,17 +8,19 @@ import dom from './images/dom.png';
 
 ## Introduction 
 
-React and Angular are widely used web development framework for single page application from a very long time in industry. 
-In this article i will explain how react/angular work on the optimisation to provide faster rendering on screen.
+React and Angular have widely used web development frameworks for single-page applications for a very long time in the industry. 
+In this article, I will explain how to react/angular work on the optimization to provide faster rendering on screen.
 
-Before explaning the core algorithm of these two development framework we should have an idea of how HTML parserer works and 
-dom get displayed on screen. Below is the workflow of webkit which shows the stages through which html files goes before 
-displaing on screen.
+Before explaining the core algorithm of these two development frameworks we should have an idea of how HTML parser works and dom get displayed on the screen. Below is the workflow of WebKit which shows the stages through which HTML files goes before 
+displaying on screen. Below is the workflow of WebKit which shows the stages through which HTML files goes before 
+displaying on screen.
 
-First stage is the parsing of HTML and CSS to check for syntax validation once the renderer tree is contructd it merge it
-with the style rules, next comes the Layout where each nodes in the Dom Tree get their coordinates, We write these coordinates as 
-width and height while styling element. Next, it will goes through painting where earch nodes will be painted with the color codes 
-specified in the style and in later stage it get displayed on screen. For detailed explanation refer [How Browser Work](http://taligarsiel.com/Projects/howbrowserswork1.htm#Introduction)
+The first stage is the parsing of HTML and CSS to check for syntax validation once the renderer tree is constructed it merge it
+with the style rules, next comes the Layout where each node in the Dom Tree get their coordinates, We write 
+these coordinates as width and height while styling element. Next, it will go through painting where 
+each node will be painted with the color codes specified in the style and later stage it gets displayed 
+on the screen. For a detailed explanation refer 
+[How Browser Work](http://taligarsiel.com/Projects/howbrowserswork1.htm#Introduction)
 
 <div className={styles["webkit"]}>
   <img src={webkitflow} className={styles["logo-webkit"]} alt="logo" />
@@ -26,18 +28,18 @@ specified in the style and in later stage it get displayed on screen. For detail
 <div className={styles["center"]}> fig 1: How browsers work </div>
 
 **Front-End Framework Comparision**
-i'll be disscussing the optimisation technique used by react and Angular, How the re-construction of 
-tree happen when there's any change in the  renderer tree. In react there's virtual Dom Tree used bt react
-whereas angular use change detection technique to detech any node view change.
+I'll be discussing the optimization technique used by react and Angular, How the re-construction 
+of the tree happens when there's any change in the renderer tree. In React there's virtual Dom Tree is used
+whereas angular uses a change detection technique to detach any node to make any changes to the view.
 
 
-**React:** React uses Virtual Dom to optimising the renderer tree before painting on screen,a json object which contain 
-node's TagName, Attribute, style, props and other information to uniquily identify the node. When react application
-runs it make a seperate copy of each node in the form of tree and each node represent json object refer Fig 2. 
-let's say user perform any action in component D and Component E, once the change happen react will compare this tree with 
+**React:**  React uses Virtual Dom to optimizing the renderer tree before painting on the screen, a json object which contains 
+node's TagName, Attribute, style, props and other information to uniquely identify the node. When React application
+runs it make a separate copy of each node in the form of a tree and each node represents json object refer Fig 2. 
+let's say user perform any action in component D and Component E, once the change happens react will compare this tree with 
 the actual dom using [diffing algorith](https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf).
-As a result new Dom Tree will be created for rendering Component D, E, G and H and only these compoent will get painted on screen 
-hence optimising the rendering process.
+As a result, new Dom Tree will be created for rendering Component D, E, G and H, and only these component will get painted on the screen 
+hence optimizing the rendering process.
 
 ```jsx
 /* Virtual Dom Json Representation */
@@ -66,10 +68,12 @@ hence optimising the rendering process.
 ]
 ```
 
-*Diffing Algorithm:* Comparing virtual dom with the actual dom. This algorithm makes sure the parsed object only goes to layout 
-and then painting whenever neccessary changes are requierd, it avoid unneccesary rendering of tree. Complexity of this algorithm 
-is log(n<sup>3</sup>). so if there are 1000 operation then there going to 1 billion comparision. To avoid this much of comparision 
-react render the below nodes if something changes to parent, It wont compare each and every nodes if changes detected at parent. 
+*Diffing Algorithm:* Comparing virtual dom with the actual dom. This algorithm makes sure the 
+parsed object only goes to layout and then painting whenever necessary changes are required, 
+it avoids unnecessary rendering of the tree. Complexity of this algorithm 
+is log(n<sup>3</sup>). so if there are 1000 operation then there going to 1 billion comparisons.
+ To avoid this much comparison react render the below nodes if something changes to parent, It won't 
+ compare each node if changes detected at the parent. 
 For more detailed explanation refer react's [reconciliation](https://reactjs.org/docs/reconciliation.html).
 
 
@@ -83,14 +87,19 @@ For more detailed explanation refer react's [reconciliation](https://reactjs.org
 </div>
 <div className={styles["center"]}> fig 3: After comparison with actual DOM,Component D, E, G and H will update </div>
 
-**Angular:** Angular usses change detection technique to update the view. It is very intresting to note that Angular
-creates [ViewData](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L343) for all nodes
-which is a json object and it contain all the information for current node and if there's any child compoent it created it's 
-instance and save in component [component](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L351) key. 
+**Angular:** Angular uses a change detection technique to update the view. It is very interesting to note 
+that Angular
+creates [ViewData](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L343) for
+ all nodes
+which are a json object and it contains all the information for the current node and if there's any child
+ component it created it's instance and save in component
+  [component](https://github.com/angular/angular/blob/8.0.x/packages/core/src/view/types.ts#L351) key. 
 
-A View is a fundamental building block of the application UI. It is the smallest grouping of Elements which 
-are created and destroyed together. Properties of elements in a View can change, but the structure (number 
-and order) of elements in a View cannot. Changing the structure of Elements can only be done by inserting, 
+
+A View is a fundamental building block of the application UI. It is the smallest grouping of 
+Elements which are created and destroyed together. Properties of elements in a View can change, 
+but the structure (number and order) of elements in a View cannot. Changing the structure of Elements can 
+only be done by inserting, 
 moving or removing nested Views via a ViewContainerRef. Each View can contain many View Containers.
 
 </div>

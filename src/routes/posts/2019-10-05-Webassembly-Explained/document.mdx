@@ -1,0 +1,51 @@
+import naviLogo from './navi-logo.svg'
+import reactLogo from './react-logo.svg'
+import styles from './document.module.css'
+
+<div className={styles["Welcome"]}>
+  {/* <img src={naviLogo} className={styles["logo-navi"]} alt="logo" /> */}
+  {/* <img src={reactLogo} className={styles["logo-react"]} alt="logo" /> */}
+</div>
+
+
+#### 1. Find a file 
+```jsx
+
+  a) find (the program)
+  b) /(the path)
+  c) and -name abc.dmg
+  find / -name abc.dmg
+```
+
+#### 2. To prevent the shell from interpreting the dollar sign, backslash it
+```jsx
+ 
+  echo \$remote_add
+  or use single quotes
+  echo '$remote_addr'
+```
+
+#### 3. Execute a .sh file
+```jsx
+
+  chmod u+x myfile.sh
+  cp myfile.sh /usr/local/bin
+  edit ~/.bash_profile and add the following line:
+  alias myfile=./myfile.sh
+  execute the following command-line:
+  source ~/.bash_profile
+  then you will be able to run your file as a program
+  $ myfile
+```
+
+#### 4. Kill a process
+```jsx
+
+  lsof -i :8888
+  kill -9 pid
+
+```
+
+<!--
+Reference: 
+1. https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf -->

@@ -1,6 +1,6 @@
 export default {
-  title: `Linux Command`,
+  title: `Webassembly Explained`,
   tags: ['Javascript'],
-  spoiler: "Some useful command used for linux",
+  spoiler: "Some usefull command used for linux",
   getContent: () => import('./document.mdx'),
 }
