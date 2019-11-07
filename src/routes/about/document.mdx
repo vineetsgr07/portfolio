@@ -1,14 +1,16 @@
-import styles from './document.module.css'
+import styles from "./document.module.css";
+import hangman from "./sideProjects/hangman.png";
 
 <div className={styles.Document}>
 
 # Here's what i've done so far
 
 ## Delhivery
+
 It's a logistic startup in India, Joined as a developer and worked on:
 
-`NETPLAN:` It's a data Science product where we predict at what places we should be opening our 
-Hubs so during surge we can minimize the cost and optimise the distance to make Delhivery business 
+`NETPLAN:` It's a data Science product where we predict at what places we should be opening our
+Hubs so during surge we can minimize the cost and optimise the distance to make Delhivery business
 in profit.
 
 `FLEET MANAGEMENT SYSTEM:` Product to keep track of all the vehicle movement accross india
@@ -17,6 +19,35 @@ in profit.
 
 Cloudthing Solve complex business problem with beautifully crafted solution.
 
-``Hybrid Application:`` Developed React application and PWA to create a mobile application.
+`Hybrid Application:` Developed React application and PWA to create a mobile application.
+
+## Side sideProjects
+
+#### 1. Hangman - Vocabulary builder
+
+<div className={styles["flex-row"]}>
+
+<div>
+  <img src={hangman} className={styles["project-image"]} alt="logo" />
+</div>
+
+<div>
+It's a game where player guesses the word with help of hint. 10 lives are awarded which can
+be exchanged with wrong answer. Hope you enjoy it! All the Best.
+<div  className={styles["flex-column"]}>
+    <div>
+        <button className={styles["pure-material-button-contained"]}>
+            <a className={styles["anchor"]} href="https://vineetsgr07.github.io/hangman-javascript/" target="_blank">Play</a>
+        </button>
+    </div>
+     <div>
+       <button className={styles["pure-material-button-contained"]}>
+           <a className={styles["anchor"]} href="https://github.com/vineetsgr07/hangman-javascript" target="_blank">Code</a>
+       </button>
+  </div>
+</div>
+
+ </div>
+</div>
 
 </div>
