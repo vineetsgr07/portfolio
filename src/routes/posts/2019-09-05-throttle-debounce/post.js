@@ -1,6 +1,6 @@
 export default {
   title: `Throttle Vs Debounce`,
   tags: ['Javascript'],
-  spoiler: "Debounce and throttle are two techniques when event are fired too often.",
+  spoiler: "Two techniques when events are fired too often in browser.",
   getContent: () => import('./document.mdx'),
 }
