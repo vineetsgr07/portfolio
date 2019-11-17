@@ -44,95 +44,98 @@ these module as different services and host them on different server. This will 
 outdated. Also if a new programming language comes to market and development team wants to refactor their code they
 can do it easily without affecting any other modeuls.  When decomposing a monolithic into microservice, we should be 
 considering the business logic not the technical complexity. Finding the main classes in the monolithic and make them services. 
-Reason for decomposing a monolithic application is to atain scalibility, reliability and security. Also maintainibility, 
-testibility and deploybility.Microservices is a set of loosely coupled services. Individual services across a microservice 
-use Rest Api or asynchronous messaging to do inter process communication. We will be discussing more in-depth about the 
-asynchronoud messaging in this series of article.
+Reason for decomposing a monolithic application is to atain scalibility, reliability, security, maintainibility, 
+testibility and deploybility. Microservices is a set of loosely coupled services. Individual services across a microservice 
+uses Rest Api or asynchronous messaging to do inter process communication. We will be discussing more in-depth about the 
+asynchronoud messaging in this series of article. Domain driven design(DDD) is the best practice to decompose a 
+application to sub domain. 
+<br/>
+<br/>
+<b> Domain Driven Development, DDD: </b>To define domain-driven design we should first establish what we mean by domain in this context (and in development in general). 
+The common dictionary definition of domain is: “A sphere of knowledge or activity.” Drilling down a bit from that, domain in the 
+realm of software engineering commonly refers to the subject area on which the application is intended to apply. In other words, 
+during application development, the domain is the “sphere of knowledge and activity around which the application logic revolves.”
 
-  There are two pattern for decomposition.
-
-  1) Decomposition by capability
-
-  2) Decomposition by Sub domain. DDD
 
 InterProcess communication can be of two types. Synchronous and Ashynchronous. In Synchronous we can think it as a one to one 
 communication where client send a request to server and wats for the response, Where as in an many to many could be of two types
 Publish/Subscribe: Client publish and server subscribe to it for the changes it want to recieve
 Publish/async response: 
 </div>
+<p className={styles["justifyContent"]}>
+<b>Docker/Kubernetes:</b> It provide service registry and service discovery mechanism. 
+</p>
 
-grpc/ Rest API:
-Docker/Kubernetes: It provide service registry and service discovery mechanism
-
-message brocker is used for communicating between two services. uses brockerless and brocker based.
-
+### Message Brocker
+<div className={styles["justifyContent"]}>
+Message brocker is used for communicating between two services. Two type of message brocker, brockerless and brocker based.
 In brocker based, sender doesn't need to know the location of the consumer. ALso brocker buffer the data until consumer ready to
-accept it.
-
-1) Active MQ
-
-2) Rabit MQ
-
-3) Apache Kafka
-
-Could based:
-
-1) Aws Kinesis
+accept it.<br/>
+1) Active MQ <br/>
+2) Rabit MQ <br/>
+3) Apache Kafka <br/>
+<b>Could based:<br/></b>
+1) Aws Kinesis<br/>
 2) AWS SQS
 
-messaging Standalone -> AMQP and STOMP does message brocker support. messaging ordering, delivery gaurantee, persistence, durability
-scalability, latency, competing consumers
-
-Handeling duplicate message: 
+Messaging Standalone -> AMQP and STOMP does message brocker support. messaging ordering, delivery gaurantee, persistence, durability
+scalability, latency, competing consumers<br/>
+<b>Handeling duplicate message:</b> 
 Lets take an account of grocery delivery system. client create a order and followed by cancelling the same order. let suppose order 
 placed didn't acknowlede. and it tries again and it created the order again. 
-Two ways to handle it
-
-1) Write idempotent message handler
+Two ways to handle it<br/>
+1) Write idempotent message handler<br/>
 2) Track message and discard duplicate
+</div>
 
+### Load Balencer
+<div className={styles["justifyContent"]}>
+A load balancer is a device that acts as a reverse proxy and distributes network or application traffic across a 
+number of servers. 
+Load balancers are used to increase capacity (concurrent users) and reliability of applications.
+<br/>
+<b>Load Balancing Algorithms: </b>
+Different load balancing algorithms provide different benefits; the choice of load balancing method depends on your needs: <br/>
 
+1) Round Robin – Requests are distributed across the group of servers sequentially.<br/>
+2) Least Connections – A new request is sent to the server with the fewest current connections to clients. 
+The relative computing capacity of each server is factored into determining which one has the least connections.<br/>
+3) IP Hash – The IP address of the client is used to determine which server receives the request.
+</div>
 
-# Load Balencer
-How Load balancer is set up and how to scale an application 
-
-# Domain Driven Development
-
-# Sagas
-
-Saga us a design patter which is used to maintain consistency in distributed system. Given an example where you put series of
+### Sagas
+<div className={styles["justifyContent"]}>
+A saga is a sequence of local transactions. Each service in a saga performs its own transaction and publishes an event. 
+The other services listen to that event and perform the next local transaction. If one transaction fails for some reason, 
+the saga also executes compensating transactions to undo the impact of the preceding transactions.
+It is used to maintain consistency in distributed system. Given an example where you put series of
 transaction is affected by previous transaction . current tansaction is affected by previous one. Think of a example like logistic 
-food delivery system or any other.
-
-Two ways to deal with messaging transaction
-1) Choreography:
-2) orchestration:
-
-Choreography is a pub/sub event babsed saga. for example if a service has to use three other service it will publish the events
+food delivery system or any other. Two ways to deal with messaging transaction <br/>
+<b>1) Orchestration:</b> In this approach, there is a Saga orchestrator that manages all the transactions and directs the 
+participant services to execute local transactions based on events. Choreography is a pub/sub event babsed saga. for example if 
+a service has to use three other service it will publish the events
 and subscribe to those services to get the desired result.
-
-Orchastration: It uses orchastration class to tell each saga about their responsibility.
+This orchestrator can also be though of as a Saga Manager. <br/>
+<b>2) Choreography: </b>In this approach, there is no central orchestrator. Each service participating in the Saga performs 
+  their transaction and publish events. The other services 
+  act upon those events and perform their transactions. Also, they may or not publish other events based on the situation. 
+   It uses orchastration class to tell each saga about their responsibility.
  It communicate using command/asyn reply-stype interation. 
  It's usefull to mode a saga as a state machine as it describe all possible scenarious. Testing Sagas
 
- Pivot Transaction.
 
 
+</div>
+
+## Conclusion
+We have disscussed some benifits of using microservices over monolithic, in the next series of article i'll be disscusing 
+more in-depth of message brocker, Load Balancer and sagas. 
+
+<!-- 
+<div>
  Aggregate: Take an example of an logistic company, which consist of fleet system, facility system, delivery system. Fist mile,
  mid mile and last mile. All these are noun.
  Patter aggregation: Organise a domain model as a collection of Aggregates, each of which is a group of objects that can be treated
- as a unit.
+ as a unit. 
 
-
-
-
-
-
-
-
-
-
-
-<!--
-Reference: 
-1. https://codeburst.io/throttling-and-debouncing-in-javascript-b01cad5c8edf -->
+ </div> -->
