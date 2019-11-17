@@ -115,11 +115,11 @@ a service has to use three other service it will publish the events
 and subscribe to those services to get the desired result.
 This orchestrator can also be though of as a Saga Manager. <br/>
 <b>2) Choreography: </b>In this approach, there is no central orchestrator. Each service participating in the Saga performs 
-  their transaction and publish events. The other services 
-  act upon those events and perform their transactions. Also, they may or not publish other events based on the situation. 
-   It uses orchastration class to tell each saga about their responsibility.
- It communicate using command/asyn reply-stype interation. 
- It's usefull to mode a saga as a state machine as it describe all possible scenarious. Testing Sagas
+their transaction and publish events. The other services 
+act upon those events and perform their transactions. Also, they may or not publish other events based on the situation. 
+It uses orchastration class to tell each saga about their responsibility.
+It communicate using command/asyn reply-stype interation. 
+It's usefull to mode a saga as a state machine as it describe all possible scenarious. Testing Sagas
 
 
 
@@ -129,6 +129,9 @@ This orchestrator can also be though of as a Saga Manager. <br/>
 We have discussed some benefits of using microservices over monolithic, in the next series of articles 
 I'll be discussing more in-depth of message broker, Load Balancer and sagas. 
 
+
+### Reference
+1. Microservices Patterns by Chris Richardson
 <!-- 
 <div>
  Aggregate: Take an example of an logistic company, which consist of fleet system, facility system, delivery system. Fist mile,
