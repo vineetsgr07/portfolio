@@ -37,3 +37,8 @@
     transform: rotate(-30deg);
   }
 }
+
+.justifyContent{
+  text-align: justify;
+  text-justify: inter-word;
+}

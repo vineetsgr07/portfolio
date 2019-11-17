@@ -47,3 +47,7 @@
   left: 212px;
 }
 
+.justifyContent{
+  text-align: justify;
+  text-justify: inter-word;
+}
