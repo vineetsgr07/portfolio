@@ -10,57 +10,56 @@ import styles from './document.module.css'
 
 ## Introduction: 
 <div className={styles["justifyContent"]}>
-This is an article which mainly focusses on designing the Microservice architecture, when your Monolithic application start 
-getting complex with lot of new feature, bussiness logic and you want to make it Robust, Reliable and compatible whitout 
-comprimising it's latency and concurency. 
-let's disscuss when you should start re-defining your monolithic design into microservices and move the bussiness logic by 
-by decomposing it into different services. What are all design pattern you should refer to structure your microservice, 
-Why Domain Driven Development and why it is the best choise for microservices. 
-How microsercie comunicate using one-to and one-to-many with other services in it's ecosystem. What is messge brocker 
-and it's type. What is saga pattern and how it is helpfull to maintain concurency across the services.
+This is an article that mainly focusses on designing the Microservice architecture when your 
+Monolithic application starts getting complex with a lot of new features and the addition of 
+the new features and you want to make it Robust, Reliable and compatible without compromising 
+its latency/concurrency. let's discuss when you should start re-defining your monolithic design 
+into microservices and move the business logic by decomposing it into different services. 
+What are all design pattern you should refer to structure your microservice? 
+Why Domain-Driven Development and why it is the best choice for microservices? 
+How microservice communicate using one-to and one-to-many with other services in its ecosystem? 
+What are the message broker and its type? What is the saga pattern and how it is helpful 
+to maintain concurrency across the services?
 </div>
 
 # Monolithic Vs Microservice 
 <div className={styles["justifyContent"]}>
-<b>Monolithic</b> In past we have been using monolithic architecutre where all the logic is composed in one, consider a logistic system 
-where we have
-Let's consider these 5 modules, Inventory Management, Transport Management, Packaging Management, Facility Location and 
-Customer servies.
-All these module are part of a big logistics application and they communicate via their seperate services.
-As the company grow, feature also grow which makes the application bulky. Suppose this application is developed using 
-a particular language with old version and with time the language gets outdated, it's going to be very difficult to update 
-the the whole application and if company decided to update the language then development going to be affected which can cost
-millions of loss to the company.
-Also how diffucult it going to be for the developer to maintain and add a new feature, everytime they have to inform the whole dev 
-team to stop their development until their feature goes live, again this can be solved via Git but it's going to be painful 
-to do pull, rebase and merge again and again. Developer productivity going to be affected very badly.
-Monolithic architecture means everything is composed in one. 
+<b>Monolithic</b> When the software industry was evolving we were using monolithic architecture where all the logic is 
+composed in one, consider a logistic system with 5 modules, Inventory Management, Transport Management, Packaging 
+Management, Facility Location and Customer services. All these modules are part of a big logistics application and 
+they communicate via Rest Api.As the company grows, the feature also grows which makes the application bulky and hard to
+maintain. Suppose this application is developed using a programming language that is now obsolete, it will be difficult to 
+update the application or if the company decided to update the language then development going to be affected which can cost
+millions of losses to the company. Also how difficult it would be for developer to maintain and add a new feature, every time
+they have to inform the whole dev  team to stop their development until the feature goes live, again this can be solved via 
+Git but it's going to be worrying to do pull, rebase and merge again and again. Developer productivity going to be affected 
+very badly. Monolithic architecture means everything is composed of one.
 
 <br/>
 <br/>
 
-<b>Microservice</b> all diferent services works as a distributed system. One way to solve the above problem is to decompose 
-these module as different services and host them on different server. This will sove the probelm of programming langiage getting 
-outdated. Also if a new programming language comes to market and development team wants to refactor their code they
-can do it easily without affecting any other modeuls.  When decomposing a monolithic into microservice, we should be 
-considering the business logic not the technical complexity. Finding the main classes in the monolithic and make them services. 
-Reason for decomposing a monolithic application is to atain scalibility, reliability, security, maintainibility, 
-testibility and deploybility. Microservices is a set of loosely coupled services. Individual services across a microservice 
-uses Rest Api or asynchronous messaging to do inter process communication. We will be discussing more in-depth about the 
-asynchronoud messaging in this series of article. Domain driven design(DDD) is the best practice to decompose a 
-application to sub domain. 
+<b>Microservice</b>  In microservice, all different domains work as distributed services. One way to solve the above problem 
+is to decompose these modules as different services and host them on different servers. This will solve the problem of 
+programming language getting outdated. Also if a new programming language comes to the market and development team wants 
+to refactor their code they can do it easily without affecting any other modules. When decomposing a monolithic into microservice, 
+we should be considering the business logic, not the technical complexity. Finding the main classes in the monolithic and make 
+them services. The reason for decomposing a monolithic application is to attain scalability, reliability, security, 
+maintainability, testability, and deployability. Microservices is a set of loosely coupled services. Individual services 
+across a microservice uses Rest Api or asynchronous messaging to do inter-process communication. We will be discussing 
+more in-depth about the asynchronoud messaging in this series of articles. Domain-driven design(DDD) is the best practice 
+to decompose an application to a subdomain. 
 <br/>
 <br/>
-<b> Domain Driven Development, DDD: </b>To define domain-driven design we should first establish what we mean by domain in this context (and in development in general). 
-The common dictionary definition of domain is: “A sphere of knowledge or activity.” Drilling down a bit from that, domain in the 
-realm of software engineering commonly refers to the subject area on which the application is intended to apply. In other words, 
-during application development, the domain is the “sphere of knowledge and activity around which the application logic revolves.”
+<b> Domain Driven Development, DDD: </b>To define domain-driven-design we should first establish what we mean by domain in 
+this context (and in development in general). The common dictionary definition of the domain is: “A sphere of knowledge or 
+activity.” Drilling down a bit from that, a domain in the realm of software engineering commonly refers to the subject 
+area on which the application is intended to apply. In other words, during application development, the domain is the
+“sphere of knowledge and activity around which the application logic revolves.”
 
 
-InterProcess communication can be of two types. Synchronous and Ashynchronous. In Synchronous we can think it as a one to one 
-communication where client send a request to server and wats for the response, Where as in an many to many could be of two types
-Publish/Subscribe: Client publish and server subscribe to it for the changes it want to recieve
-Publish/async response: 
+InterProcess communication can be of two types. Synchronous and Asynchronous. In Synchronous we can think about it as a one 
+to one communication where the client sends a request to server and wats for the response, Whereas in a many to many could 
+be of two types Publish/Subscribe: Client publishes and server subscribe to it for the changes it wants to receive
 </div>
 <p className={styles["justifyContent"]}>
 <b>Docker/Kubernetes:</b> It provide service registry and service discovery mechanism. 
@@ -68,9 +67,9 @@ Publish/async response:
 
 ### Message Brocker
 <div className={styles["justifyContent"]}>
-Message brocker is used for communicating between two services. Two type of message brocker, brockerless and brocker based.
-In brocker based, sender doesn't need to know the location of the consumer. ALso brocker buffer the data until consumer ready to
-accept it.<br/>
+A message broker is used for communicating between two services. Two types of message broker, broker less and broker based.
+In broker based, the sender doesn't need to know the location of the consumer. Also, Broker buffer the data until consumer 
+ready to accept it.<br/>
 1) Active MQ <br/>
 2) Rabit MQ <br/>
 3) Apache Kafka <br/>
@@ -78,11 +77,11 @@ accept it.<br/>
 1) Aws Kinesis<br/>
 2) AWS SQS
 
-Messaging Standalone -> AMQP and STOMP does message brocker support. messaging ordering, delivery gaurantee, persistence, durability
-scalability, latency, competing consumers<br/>
+Messaging Standalone -> AMQP and STOMP does message broker support. messaging ordering, delivery guarantee, persistence, 
+durability scalability, latency, competing consumers<br/>
 <b>Handeling duplicate message:</b> 
-Lets take an account of grocery delivery system. client create a order and followed by cancelling the same order. let suppose order 
-placed didn't acknowlede. and it tries again and it created the order again. 
+Let's take an account of grocery delivery system. a client creates order and followed by canceling the same order. 
+let suppose the order placed didn't acknowledge. and it tries again and it created the order again. 
 Two ways to handle it<br/>
 1) Write idempotent message handler<br/>
 2) Track message and discard duplicate
@@ -91,8 +90,7 @@ Two ways to handle it<br/>
 ### Load Balencer
 <div className={styles["justifyContent"]}>
 A load balancer is a device that acts as a reverse proxy and distributes network or application traffic across a 
-number of servers. 
-Load balancers are used to increase capacity (concurrent users) and reliability of applications.
+number of servers. Load balancers are used to increase capacity (concurrent users) and reliability of applications.
 <br/>
 <b>Load Balancing Algorithms: </b>
 Different load balancing algorithms provide different benefits; the choice of load balancing method depends on your needs: <br/>
@@ -108,9 +106,9 @@ The relative computing capacity of each server is factored into determining whic
 A saga is a sequence of local transactions. Each service in a saga performs its own transaction and publishes an event. 
 The other services listen to that event and perform the next local transaction. If one transaction fails for some reason, 
 the saga also executes compensating transactions to undo the impact of the preceding transactions.
-It is used to maintain consistency in distributed system. Given an example where you put series of
-transaction is affected by previous transaction . current tansaction is affected by previous one. Think of a example like logistic 
-food delivery system or any other. Two ways to deal with messaging transaction <br/>
+It is used to maintain consistency in the distributed system. Given an example where you put a series of
+a transaction is affected by the previous transaction. the current transaction is affected by the previous one. 
+Think of an example like a logistic food delivery system or any other. Two ways to deal with a messaging transaction <br/>
 <b>1) Orchestration:</b> In this approach, there is a Saga orchestrator that manages all the transactions and directs the 
 participant services to execute local transactions based on events. Choreography is a pub/sub event babsed saga. for example if 
 a service has to use three other service it will publish the events
@@ -128,8 +126,8 @@ This orchestrator can also be though of as a Saga Manager. <br/>
 </div>
 
 ## Conclusion
-We have disscussed some benifits of using microservices over monolithic, in the next series of article i'll be disscusing 
-more in-depth of message brocker, Load Balancer and sagas. 
+We have discussed some benefits of using microservices over monolithic, in the next series of articles 
+I'll be discussing more in-depth of message broker, Load Balancer and sagas. 
 
 <!-- 
 <div>
