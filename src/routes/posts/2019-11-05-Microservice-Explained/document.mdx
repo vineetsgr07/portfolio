@@ -1,6 +1,7 @@
 import naviLogo from './navi-logo.svg'
 import reactLogo from './react-logo.svg'
 import styles from './document.module.css'
+import microserviceMono from './images/microserviceMono.jpg';
 
 <div className={styles["Welcome"]}>
   {/* <img src={naviLogo} className={styles["logo-navi"]} alt="logo" /> */}
@@ -10,35 +11,35 @@ import styles from './document.module.css'
 
 ## Introduction: 
 <div className={styles["justifyContent"]}>
-This is an article that mainly focusses on designing the Microservice architecture when your 
-Monolithic application starts getting complex with a lot of new features and the addition of 
-the new features and you want to make it Robust, Reliable and compatible without compromising 
-its latency/concurrency. let's discuss when you should start re-defining your monolithic design 
-into microservices and move the business logic by decomposing it into different services. 
-What are all design pattern you should refer to structure your microservice? 
-Why Domain-Driven Development and why it is the best choice for microservices? 
-How microservice communicate using one-to and one-to-many with other services in its ecosystem? 
-What are the message broker and its type? What is the saga pattern and how it is helpful 
-to maintain concurrency across the services?
+In this article we will be disscussing when to make a decision to shift from monolithic to microservices pattern.
+How to make your product Robust, Reliable and compatible without compromising its latency and concurrency ?
+How to decompose your monolithic application into microservices, what are the callenges while decomposing and 
+their sollution using design pattern like DDD, communication using one-to and one-to-many, message broker and their comparision, 
+Saga pattern to maintain concurrency across the services?
+</div>
+
+<br/>
+<div className={styles["webkit"]}>
+  <img src={microserviceMono} className={styles["logo-webkit"]} alt="logo" />
 </div>
 
 # Monolithic Vs Microservice 
 <div className={styles["justifyContent"]}>
-<b>Monolithic</b> When the software industry was evolving we were using monolithic architecture where all the logic is 
-composed in one, consider a logistic system with 5 modules, Inventory Management, Transport Management, Packaging 
-Management, Facility Location and Customer services. All these modules are part of a big logistics application and 
-they communicate via Rest Api.As the company grows, the feature also grows which makes the application bulky and hard to
-maintain. Suppose this application is developed using a programming language that is now obsolete, it will be difficult to 
-update the application or if the company decided to update the language then development going to be affected which can cost
-millions of losses to the company. Also how difficult it would be for developer to maintain and add a new feature, every time
-they have to inform the whole dev  team to stop their development until the feature goes live, again this can be solved via 
+<b>Monolithic</b>In monolithic architecture all the logic is 
+composed in one, consider a logistic compnay with 5 major modules: Inventory Management, Transport Management, Packaging 
+Management, Facility Location and Customer services. All these modules are part of a single application. 
+As the company grows, the feature also grows which makes the application bulky and hard to
+maintain. Suppose this application is developed using a programming language that is now obsolete, if the team decided to 
+change the programming language then development going to be affected which can cost
+millions of losses to the company. Also how difficult it would be for developer to maintain and add a feature, every time
+they have to inform the whole dev team to stop their development until the feature goes live, again this can be solved via 
 Git but it's going to be worrying to do pull, rebase and merge again and again. Developer productivity going to be affected 
-very badly. Monolithic architecture means everything is composed of one.
+very badly.
 
 <br/>
 <br/>
 
-<b>Microservice</b>  In microservice, all different domains work as distributed services. One way to solve the above problem 
+<b>Microservice</b> In microservice, all different domains work as distributed services. One way to solve the above problem 
 is to decompose these modules as different services and host them on different servers. This will solve the problem of 
 programming language getting outdated. Also if a new programming language comes to the market and development team wants 
 to refactor their code they can do it easily without affecting any other modules. When decomposing a monolithic into microservice, 
@@ -120,8 +121,6 @@ act upon those events and perform their transactions. Also, they may or not publ
 It uses orchastration class to tell each saga about their responsibility.
 It communicate using command/asyn reply-stype interation. 
 It's usefull to mode a saga as a state machine as it describe all possible scenarious. Testing Sagas
-
-
 
 </div>
 
