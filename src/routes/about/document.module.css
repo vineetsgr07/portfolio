@@ -144,3 +144,7 @@
 .pure-material-button-contained:disabled::after {
   opacity: 0;
 }
+
+.small-text{
+  font-size: 12px;
+}
