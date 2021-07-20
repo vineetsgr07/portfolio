@@ -15,7 +15,8 @@ function Bio(props) {
     `}>
       <img src={photoURL} alt="Me" />
       <p>
-        Personal Blog by <a href="http://www.vineetsagar.space/about">Vineet</a>
+        Personal Blog by <a href="http://localhost:3000/about">Vineet</a>
+        {/* Personal Blog by <a href="http://www.vineetsagar.space/about">Vineet</a> */}
         <div>Connecting the gap between technologies... </div>
       </p>
     </div>
